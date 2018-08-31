@@ -30,6 +30,7 @@ const examples = [
   { file: 'torus.jscad', title: 'Torus()' },
 
   { file: 'text.jscad', title: 'Vector_text()', spacing: true },
+  { file: 'testFont3D.jscad', title: 'True Type fonts using opentype.js' },
 
   { file: 'transparency.jscad', title: 'Transparency', spacing: true },
   { file: 'transparency.amf', title: 'Transparency', type: 'AMF' },
