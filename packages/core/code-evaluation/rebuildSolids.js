@@ -30,15 +30,28 @@ function rebuildSolids (script, fullurl, parameters, callback, options) {
     .then(function ({source}) {
       const globals = options.implicitGlobals ? (options.globals ? options.globals : {oscad}) : {}
       const func = createJscadFunction(source, globals)
+      
     // stand-in for the include function(no-op)
       const include = x => x
-      try {
-        let objects = func(parameters, include, globals)
+
+    // inner function
+      const handleObjects = (objects, callback) => {
         objects = toArray(objects)
         if (objects.length === 0) {
           throw new Error('The JSCAD script must return one or more CSG or CAG solids.')
         }
         callback(undefined, objects)
+      }
+
+      try {
+        let objects = func(parameters, include, globals)
+        if(objects.then) { 
+          objects.then((objects) => {
+            handleObjects(objects, callback);
+          })
+        } else {
+          handleObjects(objects, callback);
+        }
       } catch (error) {
         callback(error, undefined)
       }
