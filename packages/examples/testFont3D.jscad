@@ -1,11 +1,10 @@
 include("lib/text3D.jscad");
 
 function main() {
-  //console.log(Font3D);
   
-  // f.load returns a promise for 
-  // the rest of this function everything is async
-  res = Font3D.load("examples/fonts/" + params.font) .then((font) => {
+  // after the Font3D everything is and must be async
+  res = Font3D.load("examples/fonts/" + params.font)
+    .then((font) => {
       return new Promise((resolve, reject) => { 
         let res;
         let cags = Font3D.cagFromString(font, params.myText, params.fontSize);
